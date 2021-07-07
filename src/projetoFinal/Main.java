@@ -2,7 +2,7 @@ package projetoFinal;
 
 import javax.swing.*;
 
-public class App {
+public class Main {
 
     public static void main(String[] args) {
         GUI g = new GUI();
