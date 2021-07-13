@@ -8,8 +8,4 @@ public class Fugitivo extends Personagem {
         super.andar();
     }
 
-    @Override
-    public void parado() {
-        super.parado();
-    }
 }

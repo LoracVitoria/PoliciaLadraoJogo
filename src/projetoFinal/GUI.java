@@ -4,8 +4,6 @@ import com.sun.source.tree.ReturnTree;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,41 +11,51 @@ public class GUI extends JFrame {
 
     JFrame janela;
     Container container;
-    //JPanel panel1, panel2;
     List<JPanel> areas;
     Color corPanel;
+    JPanel pessoa;
 
     // Método Construtor
     public GUI(){
-        //addKeyListener(this);
-        instanciar();
-        atribuir();
+        criaFrame();
+        criaContainer();
+        criaAreas();
+        criaPessoa();
         geraMapa();
+        //setUndecorated(true);  // excluir botão de maximizar a tela
         setVisible(true);
     }
 
-    public void instanciar(){
+    public void criaFrame(){
         janela = new JFrame();
-        areas = new ArrayList<>();
-        corPanel = Color.DARK_GRAY;
-    }
-    public void atribuir(){
-
-        // JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1300,900);
         janela.setTitle("Fugindo do Banco");
         janela.setResizable(false);
+    }
 
-        //Container
+    public void criaContainer(){
         container=getContentPane();
         container.setLayout(null);
         container.setBackground(Color.WHITE);
         setContentPane(container);
     }
+    public void criaAreas(){
+        areas = new ArrayList<>();
+
+    }
+
+    public void criaPessoa(){
+        pessoa = new JPanel();
+        pessoa.setBackground(Color.RED);
+        pessoa.setBounds(35,630,25,80);
+        container.add(pessoa);
+
+    }
 
     public JPanel criaPanel(int x, int y, int largura, int altura) {
         JPanel panel = new JPanel();
+        corPanel = Color.DARK_GRAY;
         panel.setBackground(corPanel);
         panel.setBounds(x,y,largura,altura);
         return panel;
