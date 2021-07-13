@@ -1,26 +1,12 @@
 package projetoFinal;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+public class Game {
 
-public class Game implements KeyListener {
-
-    // controlaTeclado()
-    // colisao()
+    // colisaoParede()
 
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
 
-    }
+    // colisaoPersonagens()
 
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 }
+
