@@ -9,11 +9,13 @@ public class Jogo extends JFrame implements KeyListener {
 
     JFrame janela;
     Container container;
+    Container containerFinal;
     Fugitivo fugitivo;
-    Policial policial;
     Mapa mapa;
     Regra regra;
     boolean areas;
+    int xInicial = 35;
+    int yInicial = 630;
 
     // Método Construtor
     public Jogo(){
@@ -23,21 +25,21 @@ public class Jogo extends JFrame implements KeyListener {
         insereComponentes();
         addKeyListener(this);
         mostraPersonagem();
-        setUndecorated(true);  // excluir botão de maximizar a tela
         setVisible(true);
     }
 
     public void instanciar() {
         mapa = new Mapa();
-        fugitivo = new Fugitivo(35, 630, 25, 80, 3);
-        policial = new Policial();
+        fugitivo = new Fugitivo(xInicial, yInicial, 25, 80, 30);
         regra = new Regra();
     }
 
     public void criaFrame(){
         janela = new JFrame();
+        setUndecorated(true);  // excluir botão de maximizar a tela
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1300,900);
+        janela.setSize(1300, 900);
         janela.setTitle("Fugindo do Banco");
         janela.setResizable(false);
     }
@@ -112,6 +114,44 @@ public class Jogo extends JFrame implements KeyListener {
             }
         }
 
+        if(regra.venceJogo(janela.getWidth(),
+                            janela.getHeight(),
+                            fugitivo.x,
+                            fugitivo.y,
+                            fugitivo.largura,
+                            fugitivo.altura)) {
+
+            Object[] options = {
+                    "Jogar Novamente",
+                    "Encerrar o Jogo"
+            };
+
+            int result = JOptionPane.showOptionDialog(janela,
+                                                    "Parabéns, você venceu o jogo!!!\n\nO que deseja fazer agora?",
+                                                    "Fim de Jogo",
+                                                    JOptionPane.YES_NO_CANCEL_OPTION,
+                                                    JOptionPane.QUESTION_MESSAGE,
+                                                    null,
+                                                    options,
+                                                    options[0]);
+
+//            int result = JOptionPane.showOptionDialog(janela,
+//                    "Poxa vida, não foi dessa vez...\n\nO que deseja fazer agora?",
+//                    "Fim de Jogo",
+//                    JOptionPane.YES_NO_CANCEL_OPTION,
+//                    JOptionPane.ERROR_MESSAGE,
+//                    null,
+//                    options,
+//                    options[0]);
+
+            if (result == 0) {
+                fugitivo.setX(xInicial);
+                fugitivo.setY(yInicial);
+            } else {
+                System.exit(0);
+            }
+
+        }
         atualizaFrame();
     }
 
