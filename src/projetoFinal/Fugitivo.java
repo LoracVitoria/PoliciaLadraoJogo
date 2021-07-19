@@ -11,7 +11,7 @@ public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>
     ImageIcon fugitivoImage;
 
 
-    public Fugitivo(int x, int y,int largura,int altura, int passoF){
+    public Fugitivo(int x, int y, int largura, int altura, int passoF) {
         this.x = x;
         this.y = y;
         this.largura = largura;
@@ -20,9 +20,9 @@ public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>
         panel = new JPanel();
 
         fugitivoImage = new ImageIcon("images/robberstopdir.gif");
-        lFugitivoImage = new JLabel("",fugitivoImage,JLabel.CENTER);
+        lFugitivoImage = new JLabel("", fugitivoImage, JLabel.CENTER);
         lFugitivoImage.setIcon(fugitivoImage);
-        lFugitivoImage.setBounds(x,y,largura,altura);
+        lFugitivoImage.setBounds(x, y, largura, altura);
     }
 
     public void setX(int x) {
@@ -34,16 +34,13 @@ public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>
     }
 
 
-
     @Override
     public void andar(char dir) {
         super.andar(dir);
 
     }
-
-    @Override
-    public void roubar() {
-        super.roubar();
-    }
-
 }
+//    @Override
+//    public void roubar() {
+//        super.roubar();
+//    }

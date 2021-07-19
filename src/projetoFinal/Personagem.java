@@ -4,35 +4,37 @@ package projetoFinal;
 import java.lang.*;
 
 public abstract class Personagem implements Comportamento {
-    public int x, y, passoF=20;
-    public int altura=80, largura=50;
+    public int x, y, passoF = 20;
+    public int altura = 80, largura = 50;
 
     @Override
     public void andar(char dir) {
-        switch (dir){
+        switch (dir) {
             case 'd':
-                x+=passoF;
+                x += passoF;
                 break;
 
             case 'e':
-                x-=passoF;
+                x -= passoF;
                 break;
 
             case 'c':
-                y-=passoF;
+                y -= passoF;
                 break;
 
             case 'b':
-                y+=passoF;
+                y += passoF;
                 break;
 
             default:
                 break;
         }
     }
-    @Override
-    public void andar(int i) {}
 
     @Override
-    public void roubar() {}
+    public void andar(int i) {
+    }
 }
+//    @Override
+//    public void roubar() {}
+
