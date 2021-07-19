@@ -1,10 +1,8 @@
 package projetoFinal;
 
 import javax.swing.*;
-//import java.lang.*;
-import java.awt.*;
 
-public class Fugitivo extends Personagem {
+public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>  Associação por composição (depende de personagem para existir)
 
     JPanel panel;
     JLabel lFugitivoImage;
@@ -33,12 +31,9 @@ public class Fugitivo extends Personagem {
         this.y = y;
     }
 
-
-
     @Override
     public void andar(char dir) {
         super.andar(dir);
-
     }
 
 

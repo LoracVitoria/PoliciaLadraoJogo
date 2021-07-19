@@ -2,8 +2,8 @@ package projetoFinal;
 
 public interface Comportamento {
 
-    void andar(char dir);
-    void vigiar(int i);
+    public void andar(char dir);
+    public void andar(int i);
 }
 
 
