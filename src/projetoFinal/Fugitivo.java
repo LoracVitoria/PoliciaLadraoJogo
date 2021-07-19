@@ -1,6 +1,8 @@
 package projetoFinal;
 
 import javax.swing.*;
+//import java.lang.*;
+import java.awt.*;
 
 public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>  Associação por composição (depende de personagem para existir)
 
@@ -31,10 +33,17 @@ public class Fugitivo extends Personagem {     // Se relaciona com Personagem =>
         this.y = y;
     }
 
+
+
     @Override
     public void andar(char dir) {
         super.andar(dir);
+
     }
 
+    @Override
+    public void roubar() {
+        super.roubar();
+    }
 
 }

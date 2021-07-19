@@ -11,6 +11,7 @@ public class Mapa extends JPanel {
     List<JPanel> policiais;
     ImageIcon parede;
     List<JLabel> lparede;
+
     final int LARGURARUA = 100;
 
     public Mapa(){
@@ -42,6 +43,7 @@ public class Mapa extends JPanel {
         return lbparede;
     }
     public void geraMapa(){
+
         int x=0, y=0;
        
 
@@ -78,10 +80,10 @@ public class Mapa extends JPanel {
         lparede.add(criaLabel(x, y,250,175));
         areas.add(criaPanel(x, y,250,175));
 
-//        //cobrir a parte branca da direita
-//        x=1300;
-//        y=0;
-//        lparede.add(criaLabel(x, y,410,1000));
+        //cobrir a parte branca da direita
+        x=1300;
+        y=0;
+        lparede.add(criaLabel(x, y,410,1000));
     }
 
 

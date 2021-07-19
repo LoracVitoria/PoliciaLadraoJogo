@@ -34,6 +34,7 @@ public class Policial extends Personagem {  // Se relaciona com Personagem =>  A
 
     public boolean running;
 
+
     public Policial(int x, int y, int largura, int altura) {
         this.x = x;
         this.y = y;
@@ -49,7 +50,6 @@ public class Policial extends Personagem {  // Se relaciona com Personagem =>  A
         lPoliceImage.setIcon(policeImage);
         lPoliceImage.setBounds(x, y, largura, altura);
     }
-
     @Override
     public void andar(int i) {
         timer.scheduleAtFixedRate(

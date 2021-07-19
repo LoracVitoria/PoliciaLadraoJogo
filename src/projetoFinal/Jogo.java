@@ -23,6 +23,7 @@ public class Jogo extends JFrame implements KeyListener {
     ImageIcon fugEsq;
 
     Fugitivo fugitivo;
+    Banco banco;
     Mapa mapa;
     Regra regra;
     Timer timer;
@@ -35,6 +36,7 @@ public class Jogo extends JFrame implements KeyListener {
     final int LARGURA = 60;
     final int ALTURA = 80;
     char direcao;
+    //int pegardinheiro;
 
     // Método Construtor
     public Jogo(){
@@ -44,14 +46,17 @@ public class Jogo extends JFrame implements KeyListener {
         instanciar();
         insereComponentes();
         addKeyListener(this);
-        vigiar();
+        andar();
         atualizar();
         setVisible(true); //por último
     }
 
+
     public void instanciar() {
         mapa = new Mapa();
         regra = new Regra();
+        banco = new Banco(-40,500,250,250);
+        //pegardinheiro = banco.dinheiro;
         timer = new Timer();
         polices = new ArrayList<>();
         fugitivo = new Fugitivo(XINICIAL.get(0), YINICIAL.get(0), LARGURA, ALTURA, PASSO);
@@ -59,11 +64,12 @@ public class Jogo extends JFrame implements KeyListener {
         for(int i =1; i < XINICIAL.size(); i++) { //começa com 1 pois o fugitivo é o zero
             polices.add(new Policial(XINICIAL.get(i), YINICIAL.get(i), LARGURA, ALTURA));
         }
+
     }
 
     public void declaraPosInicial(){
         XINICIAL = new ArrayList<>();
-        XINICIAL.add(30);// primeiro fugitivo
+        XINICIAL.add(10);// primeiro fugitivo
         XINICIAL.add(10);
         XINICIAL.add(610);
         XINICIAL.add(270);
@@ -77,11 +83,11 @@ public class Jogo extends JFrame implements KeyListener {
         YINICIAL.add(785);
         YINICIAL.add(635);
         YINICIAL.add(635);
-    }
 
+    }
     public void criaFrame(){
         janela = new JFrame();
-        setUndecorated(true);  // excluir botão de maximizar a tela
+        setUndecorated( true );  // excluir botão de maximizar a tela
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1300,900);
         janela.setSize(1300, 900);
@@ -97,24 +103,32 @@ public class Jogo extends JFrame implements KeyListener {
         lfundo.setIcon(fundo);
         lfundo.setBounds(0,0,1300,900);
         setContentPane(container);
+
     }
 
     public void insereComponentes() {
+
+
+        container.add(fugitivo.lFugitivoImage);
+
+        for (int i = 0; i < polices.size(); i++) {
+            container.add(polices.get(i).lPoliceImage);
+        }
+
+        container.add(banco.lbanco);
+        container.add(banco.ldindin);
+
         for (JLabel lparede : mapa.getLparede()){
             container.add(lparede); //label das paredes
         }
         for (JPanel panel: mapa.getAreas()){
             container.add(panel);    //paredes
         }
-        container.add(fugitivo.lFugitivoImage);
-
-        for (int i = 0; i < polices.size(); i++) {
-            container.add(polices.get(i).lPoliceImage);
-        }
         container.add(lfundo); // deixar por último
     }
 
-    public void vigiar() {
+
+    public void andar() {
         for (int i = 0; i < 5; i++) {
             polices.get(i).andar(i);
         }
@@ -200,7 +214,9 @@ public class Jogo extends JFrame implements KeyListener {
                 new TimerTask() {
                     public void run() {
                         while(true) { // laço infinito
+                           // banco.seguranca(pegardinheiro);
                             atualizaFrame();
+
                         }
                     }
                 }, 0, 1000);
@@ -221,10 +237,13 @@ public class Jogo extends JFrame implements KeyListener {
                     fugitivo.largura,
                     fugitivo.altura)) {
                 fugitivo.andar('d');
+
                 direcao = 'd';
                 fugDir = new ImageIcon("images/robberdir.gif");
                 lfugDir = new JLabel(fugDir);
                 fugitivo.lFugitivoImage.setIcon(fugDir);
+
+
             }
         }
         if (p.getKeyCode() == 37) {
@@ -238,6 +257,7 @@ public class Jogo extends JFrame implements KeyListener {
                 fugEsq = new ImageIcon("images/robberesq.gif");
                 lfugEsq = new JLabel(fugEsq, JLabel.CENTER);
                 fugitivo.lFugitivoImage.setIcon(fugEsq);
+
             }
         }
 
@@ -268,6 +288,62 @@ public class Jogo extends JFrame implements KeyListener {
                 lfugDir = new JLabel(fugDir);
                 fugitivo.lFugitivoImage.setIcon(fugDir);
             }
+        }
+
+//        if (p.getKeyCode() == 32) {
+//            if (!regra.verificaColisao(mapa.getAreas(),
+//                    fugitivo.x,
+//                    fugitivo.y + fugitivo.passoF,
+//                    fugitivo.largura,
+//                    fugitivo.altura)) {
+//                fugitivo.roubar();
+//                pegardinheiro=0;
+//                dindin = new ImageIcon("images/dinheirovoando.gif");
+//                ldindin = new JLabel(dindin);
+//                ldindin.setIcon(dindin);
+//                ldindin.setBounds(1000,0,50,50);
+//                container.add(ldindin);
+//            }
+//        }
+
+
+        if(regra.venceJogo(janela.getWidth(),
+                            janela.getHeight(),
+                            fugitivo.x,
+                            fugitivo.y,
+                            fugitivo.largura,
+                            fugitivo.altura)) {
+
+            Object[] options = {
+                    "Jogar Novamente",
+                    "Encerrar o Jogo"
+            };
+
+            int result = JOptionPane.showOptionDialog(janela,
+                                                    "Parabéns, você venceu o jogo!!!\n\nO que deseja fazer agora?",
+                                                    "Fim de Jogo",
+                                                    JOptionPane.YES_NO_CANCEL_OPTION,
+                                                    JOptionPane.QUESTION_MESSAGE,
+                                                    null,
+                                                    options,
+                                                    options[0]);
+
+//            int result = JOptionPane.showOptionDialog(janela,
+//                    "Poxa vida, não foi dessa vez...\n\nO que deseja fazer agora?",
+//                    "Fim de Jogo",
+//                    JOptionPane.YES_NO_CANCEL_OPTION,
+//                    JOptionPane.ERROR_MESSAGE,
+//                    null,
+//                    options,
+//                    options[0]);
+
+            if (result == 0) {
+                fugitivo.setX(XINICIAL.get(0));
+                fugitivo.setY(YINICIAL.get(0));
+            } else {
+                System.exit(0);
+            }
+
         }
     }
 
